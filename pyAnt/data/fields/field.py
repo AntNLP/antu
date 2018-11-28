@@ -27,6 +27,6 @@ class Field(metaclass=ABCmeta):
     @abstractmethod
     def index(self, vocab: Vocabulary):
         """
-        G
+        Gets one or more index mappings for each element in the Field.
         """
         pass

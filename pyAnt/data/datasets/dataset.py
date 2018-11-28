@@ -1,14 +1,11 @@
 from typing import Dict, List
 import abc
 
-from
 
 class Dataset(metaclass=abc.ABCMeta):
 
-    vocabulary_set: Dict[str, Vocabulary] = {}
+    vocabulary_set: Vocabulary = {}
     datasets: Dict[str, List[Instance]] = {}
-
-
 
     @abc.abstractmethod
     def read():

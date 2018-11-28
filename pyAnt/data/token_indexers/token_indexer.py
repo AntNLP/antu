@@ -19,6 +19,7 @@ class TokenIndexer(metaclass=ABCmeta):
         the string as a key. However, for character-level ``TokenIndexer``, you
         need to traverse each character in the string.
         """
+        pass
 
     @abstractmethod
     def tokens_to_indices(
@@ -30,3 +31,4 @@ class TokenIndexer(metaclass=ABCmeta):
         Takes a list of tokens and converts them to one or more sets of indices.
         This could be just an ID for each token from the vocabulary.
         """
+        pass
