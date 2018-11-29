@@ -1,10 +1,9 @@
-
+from typing import Dict, Optional, Union
 
 class Vocabulary(object):
     """
     Parameters
     ----------
-    counter:
     """
 
     def __init__(self,
@@ -18,16 +17,14 @@ class Vocabulary(object):
         self,
         pretrained_files: Dict[str, str],
         min_count: Union[int, Dict[str, int]] = None,
-        intersection_vocabs: Optional[Dict[str, str]] = None): -> None
+        intersection_vocabs: Optional[Dict[str, str]] = None) -> None:
         pass
 
     def extend_from_counter(
         self,
         counter: Dict[str, Dict[str, int]],
-        min_count: Union[int, Dict[str, int]] = None): -> None
+        min_count: Union[int, Dict[str, int]] = None) -> None:
         pass
 
-    def add_token_to_namespace(self, token: str, namespace: str): -> int
+    def add_token_to_namespace(self, token: str, namespace: str) -> int:
         pass
-
-    def

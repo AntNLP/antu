@@ -10,9 +10,9 @@ def read_file(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
-    name='pyAnt',
+    name='antu',
     version='0.0.1',
-    author='AntNLP_Tao-Ji',
+    author='AntNLP',
     author_email='taoji.cs@gmail.com',
     description='Universal data IO module in NLP tasks (for AntNLP Group)',
     long_description = read_file("README.txt"),

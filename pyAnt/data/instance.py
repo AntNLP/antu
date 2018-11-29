@@ -1,7 +1,6 @@
 from typing import Dict, MutableMapping, Mapping
 
-from pyAnt.data.fields.field import DataArray, Field
-from pyAnt.data.vocabulary import Vocabulary
+from pyAnt.data import Vocabulary
 
 class Instance(Mapping[str, Field]):
 

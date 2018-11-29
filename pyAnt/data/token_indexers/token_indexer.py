@@ -1,9 +1,11 @@
 from typing import List, Dict, TypeVal
-from abc import ABCmeta, abstractmethod
+from abc import ABC, abstractmethod
+
+from pyAnt.data.vocabulary import Vocabulary
 
 Indices = TypeVal("Indices", List[int], List[List[int]])
 
-class TokenIndexer(metaclass=ABCmeta):
+class TokenIndexer(metaclass=ABC):
     """
     A ``TokenIndexer`` determines how string tokens get represented as arrays of
     indices in a model.

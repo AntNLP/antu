@@ -1,8 +1,9 @@
 from typing import Dict, List
-import abc
+from abc import ABC, abstractmethod
 
 
-class Dataset(metaclass=abc.ABCMeta):
+
+class Dataset(metaclass=ABC):
 
     vocabulary_set: Vocabulary = {}
     datasets: Dict[str, List[Instance]] = {}
