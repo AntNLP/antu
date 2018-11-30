@@ -8,11 +8,11 @@ class Dataset(metaclass=ABC):
     vocabulary_set: Vocabulary = {}
     datasets: Dict[str, List[Instance]] = {}
 
-    @abc.abstractmethod
+    @abstractmethod
     def read():
         pass
 
-    @abc.abstractmethod
+    @abstractmethod
     def input_to_instance():
         pass
 

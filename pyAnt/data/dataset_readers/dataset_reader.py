@@ -1,12 +1,12 @@
 from typing import Dict, List
-import abc
+from abc import ABCMeta, abstractmethod
 
-class DatasetReader(metaclass=abc.ABCMeta):
+class DatasetReader(metaclass=ABCMeta):
 
-    @abc.abstractmethod
-    def read(file_path):
+    @abstractmethod
+    def read(self, file_path: str) -> List[Instance]:
         pass
 
-    @abc.abstractmethod
-    def input_to_instance():
+    @abstractmethod
+    def input_to_instance() -> Instance:
         pass
