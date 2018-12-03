@@ -10,7 +10,7 @@ def read_file(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
-    name='antu',
+    name='pyAnt',
     version='0.0.1',
     author='AntNLP',
     author_email='taoji.cs@gmail.com',

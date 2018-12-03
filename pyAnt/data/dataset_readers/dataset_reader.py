@@ -8,5 +8,5 @@ class DatasetReader(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def input_to_instance() -> Instance:
+    def input_to_instance(self, inputs: str) -> Instance:
         pass
