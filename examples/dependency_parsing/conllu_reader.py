@@ -6,11 +6,12 @@ class ConlluReader(DatasetReader):
 
     def __init__(
         self,
-        use_fields: List[bool],
+        field_list: Dict[str, Field],
         root: str,
         is_ignore_line: Callable[[List[str]], bool],
         spacer: List[str]):
 
+        self.field_list = field_list
         self.root = root
         self.is_ignore_line = is_ignore_line
         self.spacer = spacer
