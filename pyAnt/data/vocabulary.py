@@ -7,7 +7,7 @@ class Vocabulary(object):
     """
 
     def __init__(self,
-                 counter: Dict[str, Dict[str, int]] = None,
+                 counters: Dict[str, Dict[str, int]] = None,
                  pretrained_files: Optional[Dict[str, str]] = None,
                  min_count: Union[int, Dict[str, int]] = None,):
         pass

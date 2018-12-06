@@ -27,6 +27,7 @@ class TokenIndexer(metaclass=ABC):
     def tokens_to_indices(
         self,
         tokens: List[Token],
+        field_name: str,
         vocab: Vocabulary,
         namespaces: List[str]) -> List[Indices]:
         """

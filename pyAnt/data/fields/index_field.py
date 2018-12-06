@@ -1,12 +1,12 @@
-from typing import List, Iterator, Dict
 
-class TextField(Field):
+
+class IndexField(Field):
 
     def __init__(
         self,
         name: str,
         tokens: List[str],
-        indexers: List[TokenIndexer]):
+        indexers: List[TokenIndexer] = None):
         self.name = name
         self.tokens = tokens
         self.indexers = indexers
@@ -23,20 +23,22 @@ class TextField(Field):
     @overrides
     def count_vocab_items(
         self,
-        counters: Dict[str, Dict[str, int]]) -> None:
-
-        for idxer in self.indexers:
-            for token in self.tokens:
-                idxer.count_vocab_items(token, counters)
+        counters: Dict[str, Dict[str, int]],
+        indexers: List[TokenIndexer]) -> None:
+        """
+        ``IndexField`` doesn't need index operation.
+        """
+        pass
 
     @overrides
     def index(
         self,
-        vocab: Vocabulary):
-        res = []
-        for idxer in self.indexers:
-            res.update(idxer.tokens_to_indices(self.tokens, self.name, vocab))
-
+        vocab: Vocabulary,
+        indexers: Dict[str, List[TokenIndexer]]):
+        """
+        ``IndexField`` doesn't need index operation.
+        """
+        pass
 
 
 
