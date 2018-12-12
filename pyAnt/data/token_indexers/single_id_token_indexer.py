@@ -1,5 +1,6 @@
 from typing import Dict, List
 
+
 class SingleIdTokenIndexer(TokenIndexer):
 
     def __init__(

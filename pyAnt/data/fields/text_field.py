@@ -24,7 +24,6 @@ class TextField(Field):
     def count_vocab_items(
         self,
         counters: Dict[str, Dict[str, int]]) -> None:
-
         for idxer in self.indexers:
             for token in self.tokens:
                 idxer.count_vocab_items(token, counters)

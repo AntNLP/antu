@@ -1,5 +1,7 @@
 from typing import Dict, Optional, Union
 
+
+
 class Vocabulary(object):
     """
     Parameters
@@ -8,8 +10,9 @@ class Vocabulary(object):
 
     def __init__(self,
                  counters: Dict[str, Dict[str, int]] = None,
-                 pretrained_files: Optional[Dict[str, str]] = None,
-                 min_count: Union[int, Dict[str, int]] = None,):
+                 min_count: Dict[str, int] = None,
+                 pretrained_vocab: List[str] = None,
+                 ,):
         pass
 
 
