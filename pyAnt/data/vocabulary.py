@@ -1,6 +1,8 @@
 from typing import Dict, Optional, Union
+import bidict
 
-
+DEFAULT_PAD_TOKEN = "*@PAD@*"
+DEFAULT_UNK_TOKEN = "*@UNK@*"
 
 class Vocabulary(object):
     """
@@ -11,9 +13,12 @@ class Vocabulary(object):
     def __init__(self,
                  counters: Dict[str, Dict[str, int]] = None,
                  min_count: Dict[str, int] = None,
-                 pretrained_vocab: List[str] = None,
-                 ,):
-        pass
+                 pretrained_vocab: Dict[str, List[str]] = None,
+                 no_pad_namespace: Set[str] = None,
+                 no_unk_namespace: Set[str] = None):
+        self._pad_token = DEFAULT_PAD_TOKEN
+        self._UNK_token = DEFAULT_UNK_TOKEN
+
 
 
     def extend_from_pretrained_files(
