@@ -1,4 +1,4 @@
-
+from pyAnt.data.token_indexers import TokenIndexer
 
 class IndexField(Field):
 
@@ -23,8 +23,7 @@ class IndexField(Field):
     @overrides
     def count_vocab_items(
         self,
-        counters: Dict[str, Dict[str, int]],
-        indexers: List[TokenIndexer]) -> None:
+        counters: Dict[str, Dict[str, int]]) -> None:
         """
         ``IndexField`` doesn't need index operation.
         """
@@ -33,8 +32,7 @@ class IndexField(Field):
     @overrides
     def index(
         self,
-        vocab: Vocabulary,
-        indexers: Dict[str, List[TokenIndexer]]):
+        vocab: Vocabulary):
         """
         ``IndexField`` doesn't need index operation.
         """

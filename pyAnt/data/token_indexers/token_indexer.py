@@ -27,9 +27,7 @@ class TokenIndexer(metaclass=ABC):
     def tokens_to_indices(
         self,
         tokens: List[Token],
-        field_name: str,
-        vocab: Vocabulary,
-        namespaces: List[str]) -> List[Indices]:
+        vocab: Vocabulary) -> Dict[str, Indices]:
         """
         Takes a list of tokens and converts them to one or more sets of indices.
         This could be just an ID for each token from the vocabulary.

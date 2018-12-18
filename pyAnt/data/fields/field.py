@@ -1,10 +1,10 @@
 from typing import List, Dict
-from abc import ABC, abstractmethod
+from abc import ABCMeta, abstractmethod
 
-from pyAnt.data import Vocabulary
+from pyAnt.data.vocabulary import Vocabulary
 
 
-class Field(metaclass=ABC):
+class Field(metaclass=ABCMeta):
     """
     A ``Field`` is an ingredient of a data instance. In most NLP tasks, ``Field``
     stores data of string types. It contains one or more indexers that map string

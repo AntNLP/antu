@@ -1,6 +1,11 @@
-from typing import Callable, List
+from typing import Callable, List, Dict
+from overrides import overrides
 import re
-
+import sys
+sys.path.append('../../')
+from pyAnt.data.instance import Instance
+from pyAnt.data.fields.field import Field
+from pyAnt.data.dataset_readers.dataset_reader import DatasetReader
 
 class ConlluReader(DatasetReader):
 

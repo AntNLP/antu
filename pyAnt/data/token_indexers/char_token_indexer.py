@@ -1,9 +1,14 @@
 from typing import Dict, List
+from overrides import overrides
 
 class CharTokenIndexer(TokenIndexer):
 
-    def __init__(self, related_vocabs: List[str]):
+    def __init__(
+        self,
+        related_vocabs: List[str],
+        transform: Callable[str, str]) -> None:
         self.related_vocabs = related_vocabs
+        self.transform = transform or lambda x:x
 
     @overrides
     def count_vocab_items(
@@ -14,20 +19,22 @@ class CharTokenIndexer(TokenIndexer):
         """
         for vocab_name in self.related_vocabs:
             for ch in token:
-                counters[vocab_name][ch] += 1
+                counters[vocab_name][self.transform(ch)] += 1
 
     @overrides
     def tokens_to_indices(
         self,
         tokens: List[str],
-        field_name: str,
         vocab: Vocabulary) -> Dict[str, List[int]]:
         """
         """
         res = {}
-        for name in self.related_vocabs:
-            index_name = field_name + "@" + name
-            index_list = [vocab[name][tok] for tok in tokens]
-            res[index_name] = index_list
+        for vocab_name in self.related_vocabs:
+            index_list = []
+
+            for token in tokens:
+                index_list.append(vocab[vocab_name][self.transform(ch)]
+                                  for ch in token)
+            res[vocab_name] = index_list
         return res
 

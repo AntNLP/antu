@@ -2,7 +2,6 @@ from typing import Dict, List
 from abc import ABC, abstractmethod
 
 
-
 class Dataset(metaclass=ABC):
 
     vocabulary_set: Vocabulary = {}
