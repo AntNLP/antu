@@ -1,4 +1,4 @@
-from typing import Dict, Optional, Union, List, Set
+from typing import Dict, Optional, Union, List, Set, TypeVal
 import bidict
 
 DEFAULT_PAD_TOKEN = "*@PAD@*"
@@ -100,8 +100,6 @@ class Vocabulary(object):
                     self.vocab[vocab_name][key] = cnt
                     cnt += 1
             self.vocab_cnt[vocab_name] = cnt
-
-
 
     def extend_from_counter(
         self,

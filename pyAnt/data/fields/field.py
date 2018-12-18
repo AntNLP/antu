@@ -11,7 +11,7 @@ class Field(metaclass=ABCMeta):
     data to the corresponding index. Data instances are collections of fields.
     """
     @abstractmethod
-    def count_vocab_items(self, counter: Dict[str, Dict[str, int]]):
+    def count_vocab_items(self, counter: Dict[str, Dict[str, int]]) -> None:
         """
         We count the number of strings if the string needs to be mapped to one
         or more integers. You can pass directly if there is no string that needs
@@ -27,7 +27,7 @@ class Field(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def index(self, vocab: Vocabulary):
+    def index(self, vocab: Vocabulary) -> None:
         """
         Gets one or more index mappings for each element in the Field.
         """

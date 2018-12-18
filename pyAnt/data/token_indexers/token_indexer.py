@@ -1,4 +1,4 @@
-from typing import List, Dict, TypeVal
+from typing import List, Dict, TypeVal, Callable
 from abc import ABC, abstractmethod
 
 from pyAnt.data.vocabulary import Vocabulary

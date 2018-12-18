@@ -1,12 +1,15 @@
-from typing import Dict, MutableMapping, Mapping
+from typing import Dict, MutableMapping, Mapping, TypeVal
 
 from pyAnt.data.vocabulary import Vocabulary
 from pyAnt.data.fields.field import Field
 
+Indices = TypeVal("Indices", List[int], List[List[int]])
+
+
 class Instance(Mapping[str, Field]):
 
 
-    def __init__(self, fields: MutableMapping[str, Field]) -> None:
+    def __init__(self, fields: Dict[str, Field]) -> None:
         self.fields = fields
         self.indexed = False
 
@@ -19,7 +22,7 @@ class Instance(Mapping[str, Field]):
     def __len__(self) -> int:
         return len(self.fields)
 
-    def add_field(self, field_name: str, field: Field, vocab: Vocabulary = None) -> None:
+    def add_field(self, field_name: str, field: Field) -> None:
         """
         Add the field to the existing ``Instance``.
         """
@@ -35,7 +38,7 @@ class Instance(Mapping[str, Field]):
         for field in self.fields.values():
             field.count_vocab_items(counter)
 
-    def index_fields(self, vocab: Vocabulary) -> None:
+    def index_fields(self, vocab: Vocabulary) -> Dict[str, Dict[str, Indices]]:
         """
         Indexes all fields in this ``Instance`` using the provided ``Vocabulary``.
         This `mutates` the current object, it does not return a new ``Instance``.
@@ -48,3 +51,8 @@ class Instance(Mapping[str, Field]):
             self.indexed = True
             for field in self.fields.values():
                 field.index(vocab)
+        res = {}
+        for field_name, field in self.fields.items():
+            res[field_name] = field.indexes
+        return res
+        

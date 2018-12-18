@@ -1,4 +1,7 @@
+from typing import List, Dict, Iterator
+from overrides import overrides
 from pyAnt.data.token_indexers import TokenIndexer
+from pyAnt.data.vocabulary import Vocabulary
 
 class IndexField(Field):
 
@@ -32,7 +35,7 @@ class IndexField(Field):
     @overrides
     def index(
         self,
-        vocab: Vocabulary):
+        vocab: Vocabulary) -> None:
         """
         ``IndexField`` doesn't need index operation.
         """

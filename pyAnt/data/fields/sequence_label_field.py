@@ -1,6 +1,7 @@
 from typing import List, Iterator, Dict
-from pyAnt
-
+from overrides import overrides
+from pyAnt.data.token_indexers import TokenIndexer
+from pyAnt.data.vocabulary import Vocabulary
 
 class SequenceLabelField(Field):
 
@@ -33,10 +34,10 @@ class SequenceLabelField(Field):
     @overrides
     def index(
         self,
-        vocab: Vocabulary):
-        res = []
+        vocab: Vocabulary) -> None:
+        self.indexes = {}
         for idxer in self.indexers:
-            res.update(idxer.tokens_to_indices(self.tokens, self.name, vocab))
+            self.indexes.update(idxer.tokens_to_indices(self.tokens, vocab))
 
 
 

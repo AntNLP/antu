@@ -1,5 +1,7 @@
-from typing import Dict, List
+from typing import Dict, List, Callable, TypeVal
 from overrides import overrides
+
+Indices = TypeVal("Indices", List[int], List[List[int]])
 
 class CharTokenIndexer(TokenIndexer):
 
@@ -25,7 +27,7 @@ class CharTokenIndexer(TokenIndexer):
     def tokens_to_indices(
         self,
         tokens: List[str],
-        vocab: Vocabulary) -> Dict[str, List[int]]:
+        vocab: Vocabulary) -> Dict[str, List[List[int]]]:
         """
         """
         res = {}
@@ -33,8 +35,8 @@ class CharTokenIndexer(TokenIndexer):
             index_list = []
 
             for token in tokens:
-                index_list.append(vocab[vocab_name][self.transform(ch)]
-                                  for ch in token)
+                index_list.append([vocab[vocab_name][self.transform(ch)]
+                                  for ch in token])
             res[vocab_name] = index_list
         return res
 

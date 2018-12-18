@@ -1,5 +1,7 @@
-from typing import Dict, List,
+from typing import Dict, List, Callable, TypeVal
 from overrides import overrides
+
+Indices = TypeVal("Indices", List[int], List[List[int]])
 
 class SingleIdTokenIndexer(TokenIndexer):
 
