@@ -20,8 +20,9 @@ class CharTokenIndexer(TokenIndexer):
         """
         """
         for vocab_name in self.related_vocabs:
-            for ch in token:
-                counters[vocab_name][self.transform(ch)] += 1
+            if vocab_name in counters:
+                for ch in token:
+                    counters[vocab_name][self.transform(ch)] += 1
 
     @overrides
     def tokens_to_indices(

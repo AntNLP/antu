@@ -20,7 +20,8 @@ class SingleIdTokenIndexer(TokenIndexer):
         """
         """
         for vocab_name in self.related_vocabs:
-            counters[vocab_name][self.transform(token)] += 1
+            if vocab_name in counters:
+                counters[vocab_name][self.transform(token)] += 1
 
     @overrides
     def tokens_to_indices(
