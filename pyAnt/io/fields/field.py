@@ -1,7 +1,7 @@
 from typing import List, Dict
 from abc import ABCMeta, abstractmethod
 
-from pyAnt.data.vocabulary import Vocabulary
+from pyAnt.io.vocabulary import Vocabulary
 
 
 class Field(metaclass=ABCMeta):

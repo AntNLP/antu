@@ -1,7 +1,7 @@
 from typing import List, Dict, Iterator
 from overrides import overrides
-from pyAnt.data.token_indexers import TokenIndexer
-from pyAnt.data.vocabulary import Vocabulary
+from pyAnt.io.token_indexers import TokenIndexer
+from pyAnt.io.vocabulary import Vocabulary
 
 class IndexField(Field):
 

@@ -1,7 +1,7 @@
 from typing import Dict, MutableMapping, Mapping, TypeVal
 
-from pyAnt.data.vocabulary import Vocabulary
-from pyAnt.data.fields.field import Field
+from pyAnt.io.vocabulary import Vocabulary
+from pyAnt.io.fields.field import Field
 
 Indices = TypeVal("Indices", List[int], List[List[int]])
 
@@ -55,4 +55,4 @@ class Instance(Mapping[str, Field]):
         for field_name, field in self.fields.items():
             res[field_name] = field.indexes
         return res
-        
+

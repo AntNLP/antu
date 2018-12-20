@@ -1,6 +1,6 @@
 from typing import Dict, List
 from abc import ABCMeta, abstractmethod
-from pyAnt.data.instance import Instance
+from pyAnt.io.instance import Instance
 
 
 class DatasetReader(metaclass=ABCMeta):

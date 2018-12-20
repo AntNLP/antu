@@ -1,6 +1,6 @@
 from typing import Dict, List, Callable, TypeVal
 from overrides import overrides
-
+from pyAnt.io.vocabulary import Vocabulary
 Indices = TypeVal("Indices", List[int], List[List[int]])
 
 class SingleIdTokenIndexer(TokenIndexer):

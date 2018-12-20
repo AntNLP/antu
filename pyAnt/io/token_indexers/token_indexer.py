@@ -1,7 +1,7 @@
 from typing import List, Dict, TypeVal, Callable
 from abc import ABC, abstractmethod
 
-from pyAnt.data.vocabulary import Vocabulary
+from pyAnt.io.vocabulary import Vocabulary
 
 Indices = TypeVal("Indices", List[int], List[List[int]])
 
