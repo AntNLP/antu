@@ -14,14 +14,14 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../pyAnt'))
+sys.path.insert(0, os.path.abspath('../../'))
 
 
 # -- Project information -----------------------------------------------------
 
-project = 'pyAnt'
-copyright = '2018, AntNLP_Tao-Ji'
-author = 'AntNLP_Tao-Ji'
+project = 'antu'
+copyright = '2018, AntNLP'
+author = 'AntNLP'
 
 # The short X.Y version
 version = ''
@@ -108,7 +108,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'pyAntdoc'
+htmlhelp_basename = 'antudoc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -135,7 +135,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'pyAnt.tex', 'pyAnt Documentation',
+    (master_doc, 'antu.tex', 'antu Documentation',
      'AntNLP\\_Tao-Ji', 'manual'),
 ]
 
@@ -145,7 +145,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'pyant', 'pyAnt Documentation',
+    (master_doc, 'antu', 'antu Documentation',
      [author], 1)
 ]
 
@@ -156,8 +156,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'pyAnt', 'pyAnt Documentation',
-     author, 'pyAnt', 'One line description of project.',
+    (master_doc, 'antu', 'antu Documentation',
+     author, 'antu', 'One line description of project.',
      'Miscellaneous'),
 ]
 

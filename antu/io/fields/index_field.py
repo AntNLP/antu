@@ -1,15 +1,15 @@
-from typing import List, Iterator, Dict
+from typing import List, Dict, Iterator
 from overrides import overrides
-from pyAnt.io.token_indexers import TokenIndexer
-from pyAnt.io.vocabulary import Vocabulary
+from antu.io.token_indexers import TokenIndexer
+from antu.io.vocabulary import Vocabulary
 
-class TextField(Field):
+class IndexField(Field):
 
     def __init__(
         self,
         name: str,
         tokens: List[str],
-        indexers: List[TokenIndexer]):
+        indexers: List[TokenIndexer] = None):
         self.name = name
         self.tokens = tokens
         self.indexers = indexers
@@ -27,18 +27,19 @@ class TextField(Field):
     def count_vocab_items(
         self,
         counters: Dict[str, Dict[str, int]]) -> None:
-        for idxer in self.indexers:
-            for token in self.tokens:
-                idxer.count_vocab_items(token, counters)
+        """
+        ``IndexField`` doesn't need index operation.
+        """
+        pass
 
     @overrides
     def index(
         self,
         vocab: Vocabulary) -> None:
-        self.indexes = {}
-        for idxer in self.indexers:
-            self.indexes.update(idxer.tokens_to_indices(self.tokens, vocab))
-
+        """
+        ``IndexField`` doesn't need index operation.
+        """
+        pass
 
 
 

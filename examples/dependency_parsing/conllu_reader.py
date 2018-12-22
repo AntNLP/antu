@@ -3,9 +3,9 @@ from overrides import overrides
 import re
 import sys
 sys.path.append('../../')
-from pyAnt.io.instance import Instance
-from pyAnt.io.fields.field import Field
-from pyAnt.io.dataset_readers.dataset_reader import DatasetReader
+from antu.io.instance import Instance
+from antu.io.fields.field import Field
+from antu.io.dataset_readers.dataset_reader import DatasetReader
 
 class ConlluReader(DatasetReader):
 

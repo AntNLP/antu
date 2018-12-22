@@ -1,13 +1,12 @@
 from typing import Dict, MutableMapping, Mapping, TypeVal
 
-from pyAnt.io.vocabulary import Vocabulary
-from pyAnt.io.fields.field import Field
+from antu.io.vocabulary import Vocabulary
+from antu.io.fields.field import Field
 
 Indices = TypeVal("Indices", List[int], List[List[int]])
 
 
 class Instance(Mapping[str, Field]):
-
 
     def __init__(self, fields: Dict[str, Field]) -> None:
         self.fields = fields

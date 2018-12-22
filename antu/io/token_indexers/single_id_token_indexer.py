@@ -1,9 +1,9 @@
 from typing import Dict, List, Callable, TypeVal
 from overrides import overrides
-from pyAnt.io.vocabulary import Vocabulary
+from antu.io.vocabulary import Vocabulary
 Indices = TypeVal("Indices", List[int], List[List[int]])
 
-class CharTokenIndexer(TokenIndexer):
+class SingleIdTokenIndexer(TokenIndexer):
 
     def __init__(
         self,
@@ -21,23 +21,19 @@ class CharTokenIndexer(TokenIndexer):
         """
         for vocab_name in self.related_vocabs:
             if vocab_name in counters:
-                for ch in token:
-                    counters[vocab_name][self.transform(ch)] += 1
+                counters[vocab_name][self.transform(token)] += 1
 
     @overrides
     def tokens_to_indices(
         self,
         tokens: List[str],
-        vocab: Vocabulary) -> Dict[str, List[List[int]]]:
+        vocab: Vocabulary) -> Dict[str, List[int]]:
         """
         """
         res = {}
-        for vocab_name in self.related_vocabs:
-            index_list = []
-
-            for token in tokens:
-                index_list.append([vocab[vocab_name][self.transform(ch)]
-                                  for ch in token])
-            res[vocab_name] = index_list
+        for index_name in self.related_vocabs:
+            index_list = [vocab[index_name][self.transform(tok)]
+                          for tok in tokens]
+            res[index_name] = index_list
         return res
 

@@ -1,18 +1,17 @@
-pyAnt package
-=============
+antnlp.nn package
+=================
 
 Subpackages
 -----------
 
 .. toctree::
 
-    pyAnt.data
-    pyAnt.nn
+    antnlp.nn.dynet
 
 Module contents
 ---------------
 
-.. automodule:: pyAnt
+.. automodule:: antnlp.nn
     :members:
     :undoc-members:
     :show-inheritance:
