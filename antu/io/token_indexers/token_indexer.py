@@ -1,11 +1,11 @@
-from typing import List, Dict, TypeVal, Callable
-from abc import ABC, abstractmethod
+from typing import List, Dict, TypeVar, Callable
+from abc import ABCMeta, abstractmethod
 
 from antu.io.vocabulary import Vocabulary
 
-Indices = TypeVal("Indices", List[int], List[List[int]])
+Indices = TypeVar("Indices", List[int], List[List[int]])
 
-class TokenIndexer(metaclass=ABC):
+class TokenIndexer(metaclass=ABCMeta):
     """
     A ``TokenIndexer`` determines how string tokens get represented as arrays of
     indices in a model.
@@ -26,7 +26,7 @@ class TokenIndexer(metaclass=ABC):
     @abstractmethod
     def tokens_to_indices(
         self,
-        tokens: List[Token],
+        tokens: List[str],
         vocab: Vocabulary) -> Dict[str, Indices]:
         """
         Takes a list of tokens and converts them to one or more sets of indices.

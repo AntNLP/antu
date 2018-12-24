@@ -1,3 +1,7 @@
 import pytest
 
-from
+
+class TestInstance(object):
+
+    def setUp(self):
+        self.instance =

@@ -1,7 +1,9 @@
 from typing import List, Iterator, Dict
 from overrides import overrides
-from antu.io.token_indexers import TokenIndexer
+from antu.io.token_indexers.token_indexer import TokenIndexer
 from antu.io.vocabulary import Vocabulary
+from antu.io.fields.field import Field
+
 
 class TextField(Field):
 

@@ -1,9 +1,9 @@
-from typing import Dict, MutableMapping, Mapping, TypeVal
+from typing import Dict, MutableMapping, Mapping, TypeVar, List
 
 from antu.io.vocabulary import Vocabulary
 from antu.io.fields.field import Field
 
-Indices = TypeVal("Indices", List[int], List[List[int]])
+Indices = TypeVar("Indices", List[int], List[List[int]])
 
 
 class Instance(Mapping[str, Field]):

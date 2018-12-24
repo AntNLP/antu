@@ -1,4 +1,4 @@
-from typing import Dict, Optional, Union, List, Set, TypeVal
+from typing import Dict, Optional, Union, List, Set, TypeVar
 import bidict
 
 DEFAULT_PAD_TOKEN = "*@PAD@*"

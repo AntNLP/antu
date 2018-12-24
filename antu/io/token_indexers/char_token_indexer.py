@@ -1,16 +1,17 @@
-from typing import Dict, List, Callable, TypeVal
+from typing import Dict, List, Callable, TypeVar
 from overrides import overrides
 from antu.io.vocabulary import Vocabulary
-Indices = TypeVal("Indices", List[int], List[List[int]])
+from antu.io.token_indexers.token_indexer import TokenIndexer
+Indices = TypeVar("Indices", List[int], List[List[int]])
 
 class CharTokenIndexer(TokenIndexer):
 
     def __init__(
         self,
         related_vocabs: List[str],
-        transform: Callable[str, str]) -> None:
+        transform: Callable[[str,], str]) -> None:
         self.related_vocabs = related_vocabs
-        self.transform = transform or lambda x:x
+        self.transform = transform or (lambda x:x)
 
     @overrides
     def count_vocab_items(

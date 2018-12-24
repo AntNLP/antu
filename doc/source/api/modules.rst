@@ -1,8 +1,8 @@
-antnlp
-======
+antu
+====
 
 .. toctree::
    :maxdepth: 4
 
-   antnlp
+   antu
    setup

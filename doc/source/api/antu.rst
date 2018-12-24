@@ -1,17 +1,18 @@
-antnlp.nn package
-=================
+antu package
+============
 
 Subpackages
 -----------
 
 .. toctree::
 
-    antnlp.nn.dynet
+    antu.io
+    antu.nn
 
 Module contents
 ---------------
 
-.. automodule:: antnlp.nn
+.. automodule:: antu
     :members:
     :undoc-members:
     :show-inheritance:
