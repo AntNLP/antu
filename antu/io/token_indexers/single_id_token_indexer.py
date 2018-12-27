@@ -9,7 +9,7 @@ class SingleIdTokenIndexer(TokenIndexer):
     def __init__(
         self,
         related_vocabs: List[str],
-        transform: Callable[[str,], str]) -> None:
+        transform: Callable[[str,], str] = None) -> None:
         self.related_vocabs = related_vocabs
         self.transform = transform or (lambda x:x)
 
@@ -33,7 +33,7 @@ class SingleIdTokenIndexer(TokenIndexer):
         """
         res = {}
         for index_name in self.related_vocabs:
-            index_list = [vocab[index_name][self.transform(tok)]
+            index_list = [vocab.get_token_index(self.transform(tok), index_name)
                           for tok in tokens]
             res[index_name] = index_list
         return res

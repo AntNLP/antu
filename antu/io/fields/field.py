@@ -30,5 +30,10 @@ class Field(metaclass=ABCMeta):
     def index(self, vocab: Vocabulary) -> None:
         """
         Gets one or more index mappings for each element in the Field.
+
+        Parameters
+        ----------
+        vocab : ``Vocabulary``
+        ``vocab`` is used to get the index of each item.
         """
         pass

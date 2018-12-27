@@ -11,6 +11,7 @@ Welcome to antu's documentation!
    :caption: Contents:
 
    api/antu.io
+   api/antu.nn
 
 Indices and tables
 ==================

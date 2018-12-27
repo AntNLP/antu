@@ -6,7 +6,19 @@ from antu.io.fields.field import Field
 
 
 class IndexField(Field):
+    """
+    A ``IndexField`` is an integer field, and we can use it to store data ID.
 
+    Parameters
+    ----------
+    name : ``str``
+        Field name. This is necessary and must be unique (not the same as other
+        field names).
+    tokens : ``List[str]``
+        Field content that contains a list of string.
+    indexers : ``List[TokenIndexer]``, optional (default=``list()``)
+        Indexer list that defines the vocabularies associated with the field.
+    """
     def __init__(
         self,
         name: str,
