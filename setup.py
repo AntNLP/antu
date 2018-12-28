@@ -15,7 +15,7 @@ setup(
     author='AntNLP',
     author_email='taoji.cs@gmail.com',
     description='Universal data IO and neural network modules in NLP tasks',
-    long_description = read_file("README.txt"),
+    long_description = read_file("README.md"),
     license='Apache',
     packages=find_packages(),
     install_requires=[],
