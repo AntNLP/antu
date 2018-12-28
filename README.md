@@ -1,37 +1,24 @@
-# pyAnt
-Universal data IO module in NLP tasks (for AntNLP Group)
+# AntU
+Universal data IO and neural network modules in NLP tasks.
+
++ **data IO** is an universal module in Natural Language Processing system and not based on any framework (like TensorFlow, PyTorch, MXNet, Dynet...).
++ **neural network** module contains the neural network structures commonly used in NLP tasks. We want to design commonly used structures for each neural network framework. We will continue to develop this module.
 
 
 
-### Dataset
+# Requirements
 
-- `vocabs: Dict[str, Vocabulary]`
-- `datasets: Dict[str, List[Instance]]`
++ Python>=3.6
++ bidict
++ overrides
 
-- `build_dataset(name: str, fpath: str, reader: DatasetReader) -> None`
-- `add_vocabulary(name: str, vocab: Vocabulary)`
+##### If you need dynet neural network:
 
-
-
-### DataReader
-
-- `read()`
-- `input_to_instance()`
++ dynet>=2.0
 
 
 
-### Instance
+# Resources
 
-- `to_str()`
-
-
-
-### Field
-
-- `get_index()`
-- `set_index()`
-
-
-
-### Logger
-
++ [Documentation](https://wait)
++ [Source Code](https://github.com/AntNLP/antu)
