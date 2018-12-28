@@ -6,6 +6,11 @@
 Welcome to antu's documentation!
 ================================
 
+Universal data IO and neural network modules in NLP tasks.
+
+* *data IO is an universal module in Natural Language Processing system and not based on any framework (like TensorFlow, PyTorch, MXNet, Dynet...).
+* *neural network module contains the neural network structures commonly used in NLP tasks. We want to design commonly used structures for each neural network framework. We will continue to develop this module.
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
