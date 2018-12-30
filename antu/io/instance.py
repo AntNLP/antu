@@ -84,4 +84,3 @@ class Instance(Mapping[str, Field]):
         for field in self.fields:
             res[field.name] = field.indexes
         return res
-
