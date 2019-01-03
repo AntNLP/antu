@@ -1,4 +1,4 @@
-from typing import Dict, List, Callable
+from typing import Dict, List, Callable, Union, Set
 from overrides import overrides
 from antu.io.vocabulary import Vocabulary
 from antu.io.instance import Instance
@@ -15,7 +15,7 @@ class DatasetSetting:
         self.is_train = is_train
 
 
-class SingleTaskDataset(Dataset):
+class SingleTaskDataset:
 
     def __init__(
         self,
@@ -26,7 +26,6 @@ class SingleTaskDataset(Dataset):
         self.datasets_settings = datasets_settings
         self.datasets = dict()
         self.reader = reader
-        self.ordered = False
 
     def build_dataset(
         self,
@@ -38,11 +37,13 @@ class SingleTaskDataset(Dataset):
         for name, setting in self.datasets_settings.items():
             self.datasets[name] = self.reader.read(setting.file_path)
             if setting.is_train:
-                self.datasets[name].count_vocab_items(counters)
+                for ins in self.datasets[name]:
+                    ins.count_vocab_items(counters)
         self.vocabulary.extend_from_counter(
             counters, min_count, no_pad_namespace, no_unk_namespace)
         for name in self.datasets:
-            self.datasets[name].index_fields(self.vocabulary)
+            for ins in self.datasets[name]:
+                ins.index_fields(self.vocabulary)
 
     def get_dataset(self, name: str) -> List[Instance]:
         return self.datasets[name]
@@ -50,16 +51,20 @@ class SingleTaskDataset(Dataset):
     def get_batches(self,
         name: str,
         size: int,
-        ordered: bool,
+        ordered: bool=False,
         cmp: Callable[[Instance, Instance], int]):
-        if ordered != self.ordered:
-            if ordered: self.datasets[name].sort(cmp)
-            else: random.shuffle(self.datasets[name])
-            self.ordered = ordered
+        if ordered: self.datasets[name].sort(cmp)
+
         num = len(self.datasets[name]) # Number of Instances
-        ret = []
+        result = []
         for beg in range(0, num, size):
             ins_batch = self.datasets[name][beg: beg+size]
             idx_batch = [ins.index_fields(self.vocabulary) for ins in ins_batch]
-            ret.append(idx_batch)
-        return cycle(ret)
+            yield idx_batch
+            result.append(idx_batch)
+
+        while True:
+            random.shuffle(result)
+            for batch in result:
+                yield batch
+

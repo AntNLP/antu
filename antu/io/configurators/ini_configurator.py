@@ -54,7 +54,6 @@ class IniConfigurator:
         attr_name = set()
         for section in config.sections():
             for k, v in config.items(section):
-                print(k, v)
                 if k in extra_args:
                     v = type(v)(extra_args[k])
                     config.set(section, k, v)

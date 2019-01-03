@@ -102,7 +102,6 @@ class Vocabulary(object):
         self.no_pad_namespace.update(no_pad_namespace)
         self.intersection_vocab.update(intersection_vocab)
         for vocab_name, counter in pretrained_vocab.items():
-            print(vocab_name)
             self.vocab[vocab_name] = bidict()
 
             cnt = 0
