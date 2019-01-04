@@ -4,8 +4,10 @@ from antu.io.vocabulary import Vocabulary
 from antu.io.instance import Instance
 from antu.io.datasets.dataset import Dataset
 from antu.io.dataset_readers.dataset_reader import DatasetReader
+from antu.utils.padding_function import shadow_padding
 import random
 from itertools import cycle
+
 
 
 class DatasetSetting:
@@ -48,11 +50,12 @@ class SingleTaskDataset:
     def get_dataset(self, name: str) -> List[Instance]:
         return self.datasets[name]
 
-    def get_batches(self,
+    def get_batches(
+        self,
         name: str,
         size: int,
         ordered: bool=False,
-        cmp: Callable[[Instance, Instance], int]):
+        cmp: Callable[[Instance, Instance], int]=None) -> List[List[int]]:
         if ordered: self.datasets[name].sort(cmp)
 
         num = len(self.datasets[name]) # Number of Instances
@@ -65,6 +68,6 @@ class SingleTaskDataset:
 
         while True:
             random.shuffle(result)
-            for batch in result:
-                yield batch
+            for indexes in result:
+                yield indexes
 

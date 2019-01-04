@@ -74,3 +74,4 @@ class TextField(Field):
         self.indexes = {}
         for idxer in self.indexers:
             self.indexes.update(idxer.tokens_to_indices(self.tokens, vocab))
+

@@ -49,6 +49,8 @@ class IndexField(Field):
         """
         ``IndexField`` doesn't need index operation.
         """
+        # self.indexes = dict()
+        # self.indexes[self.name] = self.tokens
         self.indexes = self.tokens
 
 
