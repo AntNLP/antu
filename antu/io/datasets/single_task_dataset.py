@@ -63,11 +63,14 @@ class SingleTaskDataset:
         for beg in range(0, num, size):
             ins_batch = self.datasets[name][beg: beg+size]
             idx_batch = [ins.index_fields(self.vocabulary) for ins in ins_batch]
-            yield idx_batch
-            result.append(idx_batch)
+            # print("idx_batch\n", idx_batch)
+            indexes, masks = shadow_padding(idx_batch, self.vocabulary)
+            # print("indexes\n", indexes)
+            yield indexes, masks
+            result.append((indexes, masks))
 
         while True:
             random.shuffle(result)
-            for indexes in result:
-                yield indexes
+            for indexes, masks in result:
+                yield indexes, masks
 

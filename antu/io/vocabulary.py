@@ -156,7 +156,6 @@ class Vocabulary(object):
             cnt = 0
             # Handle unknown token
             if vocab_name not in no_unk_namespace:
-                print(vocab_name + " has unk.")
                 self.vocab[vocab_name][self._UNK_token] = cnt
                 cnt += 1
 
@@ -247,7 +246,7 @@ class Vocabulary(object):
         -------
         Vocabulary size : ``int``
         """
-        return self.vocab[namespace]
+        return len(self.vocab[namespace])
 
     def get_padding_index(self, namespace: str) -> int:
         if namespace not in self.no_pad_namespace:
