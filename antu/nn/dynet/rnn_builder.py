@@ -1,6 +1,6 @@
 import _dynet as dy
 import numpy as np
-from initializer import orthonormal_initializer
+from antu.nn.dynet.initializer import orthonormal_initializer
 
 
 class DeepBiLSTMBuilder(object):
@@ -26,10 +26,10 @@ class DeepBiLSTMBuilder(object):
             if param_init:
                 self.f_init = [pc.add_parameters((h_dim),
                                init=dy.ConstInitializer(0))
-                               for _ in xrange(n_layers*2)]
+                               for _ in range(n_layers*2)]
                 self.b_init = [pc.add_parameters((h_dim),
                                init=dy.ConstInitializer(0))
-                               for _ in xrange(n_layers*2)]
+                               for _ in range(n_layers*2)]
 
         else:
             self.DeepBiLSTM = []
