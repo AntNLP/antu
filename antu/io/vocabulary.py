@@ -107,12 +107,12 @@ class Vocabulary(object):
 
             cnt = 0
             # Handle unknown token
-            if not no_unk_namespace and vocab_name not in no_unk_namespace:
+            if vocab_name not in no_unk_namespace:
                 self.vocab[vocab_name][self._UNK_token] = cnt
                 cnt += 1
 
             # Handle padding token
-            if not no_pad_namespace and vocab_name not in no_pad_namespace:
+            if vocab_name not in no_pad_namespace:
                 self.vocab[vocab_name][self._PAD_token] = cnt
                 cnt += 1
 
@@ -156,12 +156,12 @@ class Vocabulary(object):
             self.vocab[vocab_name] = bidict()
             cnt = 0
             # Handle unknown token
-            if not no_unk_namespace and vocab_name not in no_unk_namespace:
+            if vocab_name not in no_unk_namespace:
                 self.vocab[vocab_name][self._UNK_token] = cnt
                 cnt += 1
 
             # Handle padding token
-            if not no_pad_namespace and vocab_name not in no_pad_namespace:
+            if vocab_name not in no_pad_namespace:
                 self.vocab[vocab_name][self._PAD_token] = cnt
                 cnt += 1
 
@@ -247,7 +247,7 @@ class Vocabulary(object):
         -------
         Vocabulary size : ``int``
         """
-        return self.vocab[vocab_name]
+        return len(self.vocab[vocab_name])
 
 
 

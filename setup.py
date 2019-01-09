@@ -11,7 +11,7 @@ def read_file(fname):
 
 setup(
     name='antu',
-    version='0.0.1',
+    version='0.0.3',
     author='AntNLP',
     author_email='taoji.cs@gmail.com',
     description='Universal data IO and neural network modules in NLP tasks',
