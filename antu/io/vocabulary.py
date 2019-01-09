@@ -254,4 +254,11 @@ class Vocabulary(object):
         else:
             raise RuntimeError("(%s) doesn't has PAD token." % (namespace))
 
+    def get_unknow_index(self, namespace: str) -> int:
+        if namespace not in self.no_unk_namespace:
+            return self.vocab[namespace][self._UNK_token]
+        else:
+            raise RuntimeError("(%s) doesn't has UNK token." % (namespace))
+
+
 

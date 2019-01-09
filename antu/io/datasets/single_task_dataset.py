@@ -9,7 +9,6 @@ import random
 from itertools import cycle
 
 
-
 class DatasetSetting:
 
     def __init__(self, file_path: str, is_train: bool):
