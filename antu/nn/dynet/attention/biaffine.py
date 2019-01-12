@@ -27,10 +27,11 @@ class BiaffineAttention(object):
         bias=False, init=dy.ConstInitializer(0.)):
         pc = model.add_subcollection()
         if bias:
-            self.B = pc.add_parameters((h_dim,), init=0)
-        else:
-            self.V = pc.add_parameters((n_label, h_dim+s_dim), init=0)
-            self.B = pc.add_parameters((n_label,), init=0)
+            if n_label == 1:
+                self.B = pc.add_parameters((h_dim,), init=0)
+            else:
+                self.V = pc.add_parameters((n_label, h_dim+s_dim), init=0)
+                self.B = pc.add_parameters((n_label,), init=0)
         self.U = pc.add_parameters((h_dim*n_label, s_dim), init)
         self.h_dim, self.s_dim, self.n_label = h_dim, s_dim, n_label
         self.pc, self.bias = pc, bias
