@@ -18,10 +18,12 @@ class Instance(Mapping[str, Field]):
 
     def __init__(self, fields: List[Field]=None) -> None:
         self.fields = fields
+        self._fields_dict = {}
+        for field in fields: self._fields_dict[field.name] = field
         self.indexed = False  # Indicates whether the instance has been indexed
 
     def __getitem__(self, key: str) -> Field:
-        return self.fields[key]
+        return self._fields_dict[key]
 
     def __iter__(self):
         return iter(self.fields)

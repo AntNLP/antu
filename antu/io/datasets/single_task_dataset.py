@@ -54,8 +54,10 @@ class SingleTaskDataset:
         name: str,
         size: int,
         ordered: bool=False,
-        cmp: Callable[[Instance, Instance], int]=None) -> List[List[int]]:
-        if ordered: self.datasets[name].sort(cmp)
+        cmp: Callable[[Instance, Instance], int]=None,
+        is_infinite: bool=False) -> List[List[int]]:
+        print(self.datasets[name])
+        if ordered: self.datasets[name].sort(key=cmp),print('sort')
 
         num = len(self.datasets[name]) # Number of Instances
         result = []
@@ -68,7 +70,7 @@ class SingleTaskDataset:
             yield indexes, masks
             result.append((indexes, masks))
 
-        while True:
+        while is_infinite:
             random.shuffle(result)
             for indexes, masks in result:
                 yield indexes, masks
