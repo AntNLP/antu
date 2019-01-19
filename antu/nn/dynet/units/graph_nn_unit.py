@@ -1,4 +1,6 @@
-import _dynet as dy
+import dynet as dy
+from antu.nn.dynet.initializer import orthonormal_initializer
+
 
 class GraphNNUnit(object):
     """docstring for GraphNNUnit"""
@@ -7,8 +9,12 @@ class GraphNNUnit(object):
         model,
         h_dim, s_dim, act=dy.tanh, init=0, dropout=0.0):
         pc = model.add_subcollection()
-        self.W = pc.add_parameters((h_dim, s_dim), init)
-        self.B = pc.add_parameters((h_dim, h_dim), init)
+        if init != 'orthonormal':
+            self.W = pc.add_parameters((h_dim, s_dim), init)
+            self.B = pc.add_parameters((h_dim, h_dim), init)
+        else:
+            self.W = pc.parameters_from_numpy(orthonormal_initializer(h_dim, s_dim))
+            self.B = pc.parameters_from_numpy(orthonormal_initializer(h_dim, s_dim))
 
         self.pc, self.act, self.dropout = pc, act, dropout
         self.spec = (h_dim, s_dim, act, init, dropout)

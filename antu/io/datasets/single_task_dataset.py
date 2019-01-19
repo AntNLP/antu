@@ -56,8 +56,8 @@ class SingleTaskDataset:
         ordered: bool=False,
         cmp: Callable[[Instance, Instance], int]=None,
         is_infinite: bool=False) -> List[List[int]]:
-        print(self.datasets[name])
-        if ordered: self.datasets[name].sort(key=cmp),print('sort')
+        #print(self.datasets[name])
+        if ordered: self.datasets[name].sort(key=cmp)
 
         num = len(self.datasets[name]) # Number of Instances
         result = []

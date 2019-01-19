@@ -1,5 +1,6 @@
 import _dynet as dy
 import numpy as np
+from antu.nn.dynet.initializer import orthonormal_initializer
 
 
 class BiaffineAttention(object):
@@ -32,7 +33,10 @@ class BiaffineAttention(object):
             else:
                 self.V = pc.add_parameters((n_label, h_dim+s_dim), init=0)
                 self.B = pc.add_parameters((n_label,), init=0)
-        self.U = pc.add_parameters((h_dim*n_label, s_dim), init)
+        if init != 'orthonormal':                
+            self.U = pc.add_parameters((h_dim*n_label, s_dim), init)
+        else:
+            self.U = pc.parameters_from_numpy(orthonormal_initializer(h_dim*n_label, s_dim))
         self.h_dim, self.s_dim, self.n_label = h_dim, s_dim, n_label
         self.pc, self.bias = pc, bias
         self.spec = (h_dim, s_dim, n_label, bias, init)
