@@ -33,7 +33,7 @@ class BiaffineAttention(object):
             else:
                 self.V = pc.add_parameters((n_label, h_dim+s_dim), init=0)
                 self.B = pc.add_parameters((n_label,), init=0)
-        if init != 'orthonormal':                
+        if init != 'orthonormal':
             self.U = pc.add_parameters((h_dim*n_label, s_dim), init)
         else:
             self.U = pc.parameters_from_numpy(orthonormal_initializer(h_dim*n_label, s_dim))
@@ -48,11 +48,11 @@ class BiaffineAttention(object):
         if self.n_label > 1:
             lin = dy.reshape(lin, (self.h_dim, self.n_label))
         blin = hT * lin
-        if self.bias:
-            if self.n_label == 1:
-                return blin + hT * self.B
-            else:
-                return dy.transpose(blin)+self.V*dy.concatenate([h, s])+self.B
+        if self.n_label == 1:
+            return blin + (hT * self.B if self.bias else 0)
+        else:
+            return dy.transpose(blin)+(self.V*dy.concatenate([h, s])+self.B if self.bias else 0)
+
 
     @staticmethod
     def from_spec(spec, model):

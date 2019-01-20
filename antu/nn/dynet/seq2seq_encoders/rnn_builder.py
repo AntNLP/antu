@@ -109,6 +109,8 @@ class DeepBiLSTMBuilder(Seq2seqEncoder):
 
 def orthonormal_VanillaLSTMBuilder(n_layers, x_dim, h_dim, pc):
     builder = dy.VanillaLSTMBuilder(n_layers, x_dim, h_dim, pc)
+    # builder = dy.CompactVanillaLSTMBuilder(n_layers, x_dim, h_dim, pc)
+
     for layer, params in enumerate(builder.get_parameters()):
         W = orthonormal_initializer(h_dim, h_dim + (h_dim if layer>0 else x_dim))
         W_h, W_x = W[:,:h_dim], W[:,h_dim:]
