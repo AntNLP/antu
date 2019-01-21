@@ -16,17 +16,13 @@ class IndexField(Field):
         field names).
     tokens : ``List[str]``
         Field content that contains a list of string.
-    indexers : ``List[TokenIndexer]``, optional (default=``list()``)
-        Indexer list that defines the vocabularies associated with the field.
     """
     def __init__(
         self,
         name: str,
-        tokens: List[str],
-        indexers: List[TokenIndexer] = None):
+        tokens: List[str]):
         self.name = name
-        self.tokens = tokens
-        self.indexers = indexers
+        self.tokens = [int(x) for x in tokens]
 
     def __iter__(self) -> Iterator[str]:
         return iter(self.tokens)
@@ -53,7 +49,9 @@ class IndexField(Field):
         """
         ``IndexField`` doesn't need index operation.
         """
-        pass
+        # self.indexes = dict()
+        # self.indexes[self.name] = self.tokens
+        self.indexes = self.tokens
 
 
 

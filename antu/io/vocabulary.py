@@ -102,7 +102,6 @@ class Vocabulary(object):
         self.no_pad_namespace.update(no_pad_namespace)
         self.intersection_vocab.update(intersection_vocab)
         for vocab_name, counter in pretrained_vocab.items():
-            print(vocab_name)
             self.vocab[vocab_name] = bidict()
 
             cnt = 0
@@ -247,8 +246,19 @@ class Vocabulary(object):
         -------
         Vocabulary size : ``int``
         """
-        return len(self.vocab[vocab_name])
+        return len(self.vocab[namespace])
 
+    def get_padding_index(self, namespace: str) -> int:
+        if namespace not in self.no_pad_namespace:
+            return self.vocab[namespace][self._PAD_token]
+        else:
+            raise RuntimeError("(%s) doesn't has PAD token." % (namespace))
+
+    def get_unknow_index(self, namespace: str) -> int:
+        if namespace not in self.no_unk_namespace:
+            return self.vocab[namespace][self._UNK_token]
+        else:
+            raise RuntimeError("(%s) doesn't has UNK token." % (namespace))
 
 
 

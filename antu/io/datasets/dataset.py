@@ -10,11 +10,7 @@ class Dataset(metaclass=ABCMeta):
     datasets: Dict[str, List[Instance]] = {}
 
     @abstractmethod
-    def read():
-        pass
-
-    @abstractmethod
-    def input_to_instance():
+    def build_dataset():
         pass
 
 
