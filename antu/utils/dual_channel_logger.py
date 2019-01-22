@@ -9,8 +9,7 @@ def dual_channel_logger(
     file_level: int=logging.DEBUG,
     console_level: int=logging.DEBUG,
     formatter: str='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    time_formatter: str='%y-%m-%d %H:%M:%S'
-    ) -> logging.Logger:
+    time_formatter: str='%y-%m-%d %H:%M:%S',) -> logging.Logger:
 
     logger = logging.getLogger(name)
     logger.setLevel(logging.DEBUG)
