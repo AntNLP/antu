@@ -117,6 +117,6 @@ def orthonormal_VanillaLSTMBuilder(n_layers, x_dim, h_dim, pc):
         params[0].set_value(np.concatenate([W_x]*4, 0))
         params[1].set_value(np.concatenate([W_h]*4, 0))
         b = np.zeros(4*h_dim, dtype=np.float32)
-        b[h_dim:2*h_dim] = -1.0
+        # b[h_dim:2*h_dim] = -1.0
         params[2].set_value(b)
     return builder
