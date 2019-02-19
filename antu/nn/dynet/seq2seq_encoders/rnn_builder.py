@@ -37,9 +37,9 @@ class DeepBiLSTMBuilder(Seq2seqEncoder):
             f = LSTMBuilder(1, x_dim, h_dim, pc)
             b = LSTMBuilder(1, x_dim, h_dim, pc)
             self.DeepBiLSTM.append((f, b))
-            if n_layers > 1:
-                f = LSTMBuilder(n_layers-1, h_dim*2, h_dim, pc)
-                b = LSTMBuilder(n_layers-1, h_dim*2, h_dim, pc)
+            for i in range(n_layers-1):
+                f = LSTMBuilder(1, h_dim*2, h_dim, pc)
+                b = LSTMBuilder(1, h_dim*2, h_dim, pc)
                 self.DeepBiLSTM.append((f, b))
 
         self.param_init = param_init
@@ -76,7 +76,7 @@ class DeepBiLSTMBuilder(Seq2seqEncoder):
 
         else:
             for f_lstm, b_lstm in self.DeepBiLSTM:
-                f, b = f_lstm.initial_state(), b_lstm.initial_state()
+                f, b = f_lstm.initial_state(update=True), b_lstm.initial_state(update=True)
                 if train:
                     f_lstm.set_dropouts(dropout_x, dropout_h)
                     f_lstm.set_dropout_masks(batch_size)
@@ -117,6 +117,6 @@ def orthonormal_VanillaLSTMBuilder(n_layers, x_dim, h_dim, pc):
         params[0].set_value(np.concatenate([W_x]*4, 0))
         params[1].set_value(np.concatenate([W_h]*4, 0))
         b = np.zeros(4*h_dim, dtype=np.float32)
-        # b[h_dim:2*h_dim] = -1.0
+        b[h_dim:2*h_dim] = -1.0
         params[2].set_value(b)
     return builder
