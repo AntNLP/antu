@@ -40,9 +40,9 @@ class DeepBiLSTMBuilder(Seq2seqEncoder):
             f = LSTMBuilder(1, x_dim, h_dim, pc)
             b = LSTMBuilder(1, x_dim, h_dim, pc)
             self.DeepBiLSTM.append((f, b))
-            if n_layers > 1:
-                f = LSTMBuilder(n_layers-1, h_dim*2, h_dim, pc)
-                b = LSTMBuilder(n_layers-1, h_dim*2, h_dim, pc)
+            for i in range(n_layers-1):
+                f = LSTMBuilder(1, h_dim*2, h_dim, pc)
+                b = LSTMBuilder(1, h_dim*2, h_dim, pc)
                 self.DeepBiLSTM.append((f, b))
 
         self.param_init = param_init
@@ -79,7 +79,7 @@ class DeepBiLSTMBuilder(Seq2seqEncoder):
 
         else:
             for f_lstm, b_lstm in self.DeepBiLSTM:
-                f, b = f_lstm.initial_state(), b_lstm.initial_state()
+                f, b = f_lstm.initial_state(update=True), b_lstm.initial_state(update=True)
                 if train:
                     f_lstm.set_dropouts(dropout_x, dropout_h)
                     f_lstm.set_dropout_masks(batch_size)
