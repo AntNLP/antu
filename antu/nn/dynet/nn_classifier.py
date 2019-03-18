@@ -22,13 +22,13 @@ class PointerLabelClassifier(object):
     def __init__(self, model, l_dim, v_dim, h_dim, s_dim, layers=1):
         pc = model.add_subcollection()
         self.layers = layers
-        self.V  = ([pc.add_parameters((1, v_dim)) for _ in xrange(layers-1)]
+        self.V  = ([pc.add_parameters((1, v_dim)) for _ in range(layers-1)]
                   +[pc.add_parameters((l_dim, v_dim))])
 
-        self.W1 = [pc.add_parameters((v_dim, h_dim)) for _ in xrange(layers)]
+        self.W1 = [pc.add_parameters((v_dim, h_dim)) for _ in range(layers)]
 
         self.W2 = ([pc.add_parameters((v_dim, s_dim))]
-                  +[pc.add_parameters((v_dim, h_dim+s_dim)) for _ in xrange(layers-1)])
+                  +[pc.add_parameters((v_dim, h_dim+s_dim)) for _ in range(layers-1)])
 
         self.B1 = pc.add_parameters((l_dim, h_dim), init=dy.ConstInitializer(0))
         self.B2 = pc.add_parameters((l_dim, s_dim), init=dy.ConstInitializer(0))
@@ -43,7 +43,7 @@ class PointerLabelClassifier(object):
 
     def __call__(self, x, h_matrix, noprob=False):
         s_t = x
-        for i in xrange(self.layers-1):
+        for i in range(self.layers-1):
             e_t = self.V[i] * dy.tanh(self.W1[i]*h_matrix + self.W2[i]*s_t)
             a_t = dy.softmax(dy.transpose(e_t))
             c_t = h_matrix * a_t
