@@ -1,9 +1,6 @@
 import _dynet as dy
 import numpy as np
-<<<<<<< HEAD:antu/nn/dynet/rnn_builder.py
-=======
 from antu.nn.dynet.seq2seq_encoders.seq2seq_encoder import Seq2seqEncoder
->>>>>>> d07bfbc63af58fc314831d94c8082bc8f4254c43:antu/nn/dynet/seq2seq_encoders/rnn_builder.py
 from antu.nn.dynet.initializer import orthonormal_initializer
 
 
