@@ -1,4 +1,4 @@
-from typing import Dict, MutableMapping, Mapping, TypeVar, List
+from typing import Dict, MutableMapping, Mapping, TypeVar, List, Set
 
 from antu.io.vocabulary import Vocabulary
 from antu.io.fields.field import Field
