@@ -39,6 +39,9 @@ class TextField(Field):
     def __len__(self) -> int:
         return len(self.tokens)
 
+    def __str__(self) -> str:
+        return '{}: [{}]'.format(self.name, ', '.join(self.tokens))
+
     @overrides
     def count_vocab_items(
         self,

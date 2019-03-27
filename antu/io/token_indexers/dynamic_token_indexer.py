@@ -4,27 +4,30 @@ from antu.io.vocabulary import Vocabulary
 from antu.io.token_indexers.token_indexer import TokenIndexer
 Indices = TypeVar("Indices", List[int], List[List[int]])
 
+
 class DynamicTokenIndexer(TokenIndexer):
     """
     A ``SingleIdTokenIndexer`` determines how string token get represented as
-    arrays of single id indices in a model.
+    arrays of single id indexes in a model.
 
     Parameters
     ----------
     related_vocabs : ``List[str]``
         Which vocabularies are related to the indexer.
-    transform : ``Callable[[str,], str]``, optional (default=``lambda x:x``)
-        What changes need to be made to the token when counting or indexing.
-        Commonly used are lowercase transformation functions.
+    transform_for_count : ``Callable[[str,], List]``, optional (default=``lambda x:[x]``)
+        What changes need to be made to the token when counting.
+        Commonly used is dynamic oracle.
+    transform_for_index : ``Callable[[str,], List]``, optional (default=``lambda x:[x]``)
+        What changes need to be made to the token when indexing.
+        Commonly used is dynamic oracle.
     """
-    def __init__(
-        self,
-        related_vocabs: List[str],
-        transform_for_count: Callable[[str,], str]=lambda x:List[x],
-        transform_for_index: Callable[[str,], str]=lambda x:List[x]) -> None:
-
+    def __init__(self,
+                 related_vocabs: List[str],
+                 transform_for_count: Callable[[str,], List]=lambda x:[x],
+                 transform_for_index: Callable[[str,], List]=lambda x:[x]) -> None:
         self.related_vocabs = related_vocabs
-        self.transform = transform
+        self.transform_for_count = transform_for_count
+        self.transform_for_index = transform_for_index
 
     @overrides
     def count_vocab_items(
@@ -68,8 +71,9 @@ class DynamicTokenIndexer(TokenIndexer):
         """
         res = {}
         for index_name in self.related_vocabs:
-            index_list = [[vocab.get_token_index(item, index_name)
-                           for item in self.transform_for_index(tok)]
-                          for tok in tokens]
+            index_list = [
+                [vocab.get_token_index(item, index_name)
+                    for item in self.transform_for_index(tok)]
+                for tok in tokens]
             res[index_name] = index_list
         return res

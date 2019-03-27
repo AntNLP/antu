@@ -7,11 +7,10 @@ from antu.io.fields.field import Field
 
 class SequenceLabelField(Field):
 
-    def __init__(
-        self,
-        name: str,
-        tokens: List[str],
-        indexers: List[TokenIndexer]):
+    def __init__(self,
+                 name: str,
+                 tokens: List[str],
+                 indexers: List[TokenIndexer]):
         self.name = name
         self.tokens = tokens
         self.indexers = indexers
@@ -25,22 +24,17 @@ class SequenceLabelField(Field):
     def __len__(self) -> int:
         return len(self.tokens)
 
+    def __str__(self) -> str:
+        return '{}: [{}]'.format(self.name, ', '.join(self.tokens))
+
     @overrides
-    def count_vocab_items(
-        self,
-        counters: Dict[str, Dict[str, int]]) -> None:
+    def count_vocab_items(self, counters: Dict[str, Dict[str, int]]) -> None:
         for idxer in self.indexers:
             for token in self.tokens:
                 idxer.count_vocab_items(token, counters)
 
     @overrides
-    def index(
-        self,
-        vocab: Vocabulary) -> None:
+    def index(self, vocab: Vocabulary) -> None:
         self.indexes = {}
         for idxer in self.indexers:
             self.indexes.update(idxer.tokens_to_indices(self.tokens, vocab))
-
-
-
-

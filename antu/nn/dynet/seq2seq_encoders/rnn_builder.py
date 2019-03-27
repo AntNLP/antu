@@ -1,4 +1,4 @@
-import _dynet as dy
+import dynet as dy
 import numpy as np
 from antu.nn.dynet.seq2seq_encoders.seq2seq_encoder import Seq2seqEncoder
 from antu.nn.dynet.initializer import orthonormal_initializer
@@ -108,7 +108,19 @@ class DeepBiLSTMBuilder(Seq2seqEncoder):
         return self.pc
 
 def orthonormal_VanillaLSTMBuilder(n_layers, x_dim, h_dim, pc):
-    # builder = dy.VanillaLSTMBuilder(n_layers, x_dim, h_dim, pc)
+    builder = dy.VanillaLSTMBuilder(n_layers, x_dim, h_dim, pc)
+
+    for layer, params in enumerate(builder.get_parameters()):
+        W = orthonormal_initializer(h_dim, h_dim + (h_dim if layer>0 else x_dim))
+        W_h, W_x = W[:,:h_dim], W[:,h_dim:]
+        params[0].set_value(np.concatenate([W_x]*4, 0))
+        params[1].set_value(np.concatenate([W_h]*4, 0))
+        b = np.zeros(4*h_dim, dtype=np.float32)
+        b[h_dim:2*h_dim] = -1.0
+        params[2].set_value(b)
+    return builder
+
+def orthonormal_CompactVanillaLSTMBuilder(n_layers, x_dim, h_dim, pc):
     builder = dy.CompactVanillaLSTMBuilder(n_layers, x_dim, h_dim, pc)
 
     for layer, params in enumerate(builder.get_parameters()):

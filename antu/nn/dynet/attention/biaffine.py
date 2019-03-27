@@ -1,4 +1,4 @@
-import _dynet as dy
+import dynet as dy
 import numpy as np
 from antu.nn.dynet.initializer import orthonormal_initializer
 

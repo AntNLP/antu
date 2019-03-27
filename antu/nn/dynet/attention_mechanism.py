@@ -4,7 +4,7 @@ It can be used in any sequence model to look back at past states.
 We have implemented some of the attention mechanisms used.
 """
 
-import _dynet as dy
+import dynet as dy
 
 
 class VanillaAttention(object):

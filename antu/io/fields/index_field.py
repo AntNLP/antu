@@ -17,10 +17,9 @@ class IndexField(Field):
     tokens : ``List[str]``
         Field content that contains a list of string.
     """
-    def __init__(
-        self,
-        name: str,
-        tokens: List[str]):
+    def __init__(self,
+                 name: str,
+                 tokens: List[str]):
         self.name = name
         self.tokens = [int(x) for x in tokens]
 
@@ -33,19 +32,18 @@ class IndexField(Field):
     def __len__(self) -> int:
         return len(self.tokens)
 
+    def __str__(self) -> str:
+        return '{}: [{}]'.format(self.name, ', '.join(self.tokens))
+
     @overrides
-    def count_vocab_items(
-        self,
-        counters: Dict[str, Dict[str, int]]) -> None:
+    def count_vocab_items(self, counters: Dict[str, Dict[str, int]]) -> None:
         """
         ``IndexField`` doesn't need index operation.
         """
         pass
 
     @overrides
-    def index(
-        self,
-        vocab: Vocabulary) -> None:
+    def index(self, vocab: Vocabulary) -> None:
         """
         ``IndexField`` doesn't need index operation.
         """
