@@ -1,5 +1,5 @@
 import pytest
-from . import Vocabulary
+from antu.io import Vocabulary
 from collections import Counter
 
 

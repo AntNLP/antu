@@ -1,8 +1,8 @@
 import pytest
-from . import CharTokenIndexer
-from ..fields import TextField
+from antu.io.token_indexers import CharTokenIndexer
+from antu.io.fields import TextField
 from collections import Counter
-from .. import Vocabulary
+from antu.io import Vocabulary
 
 
 class TestCharTokenIndexer:

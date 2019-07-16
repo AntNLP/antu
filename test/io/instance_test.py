@@ -1,8 +1,8 @@
 import pytest
-from .token_indexers import SingleIdTokenIndexer, CharTokenIndexer
-from .fields import TextField
+from antu.io.token_indexers import SingleIdTokenIndexer, CharTokenIndexer
+from antu.io.fields import TextField
 from collections import Counter
-from . import Vocabulary, Instance
+from antu.io import Vocabulary, Instance
 
 
 class TestInstance:
