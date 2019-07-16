@@ -1,10 +1,9 @@
 import pytest
-from antu.io.token_indexers.single_id_token_indexer import SingleIdTokenIndexer
-from antu.io.token_indexers.char_token_indexer import CharTokenIndexer
-from antu.io.fields.text_field import TextField
+from .token_indexers import SingleIdTokenIndexer, CharTokenIndexer
+from .fields import TextField
 from collections import Counter
-from antu.io.vocabulary import Vocabulary
-from antu.io.instance import Instance
+from . import Vocabulary, Instance
+
 
 class TestInstance:
 
@@ -35,6 +34,6 @@ class TestInstance:
         result = data.index_fields(vocab)
         assert result['sentence']['glove'] == [2, 3, 3, 0, 0, 0, 5]
         assert result['sentence']['my_word'] == [2, 3, 3, 4, 4, 5, 6]
-        assert result['sentence']['my_char'][0] == [2, 3, 4, 5] # 'This'
+        assert result['sentence']['my_char'][0] == [2, 3, 4, 5]  # 'This'
         assert result['sentence']['my_char'][1] == result['sentence']['my_char'][2]
         assert result['sentence']['my_char'][3] == result['sentence']['my_char'][4]

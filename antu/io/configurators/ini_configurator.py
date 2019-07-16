@@ -1,6 +1,8 @@
 from typing import Dict, List, TypeVar
-from antu.utils.case_sensitive_configurator import CaseSensConfigParser
-import argparse, os, ast
+from ...utils.case_sensitive_configurator import CaseSensConfigParser
+import argparse
+import os
+import ast
 
 
 BaseObj = TypeVar("BaseObj", int, float, str, list, set, dict)
@@ -9,6 +11,7 @@ BASEOBJ = {int, float, str, list, set, dict}
 
 class safe_var_sub(dict):
     """ Safe Variable Substitution """
+
     def __miss__(self, key):
         raise RuntimeError('Attribute (%s) does not exist.' % (key))
 
@@ -36,7 +39,8 @@ def str_to_baseobj(s: str) -> BaseObj:
         return s
     if (s in globals() or s in locals()) and type(res) not in BASEOBJ:
         return s
-    else: return res
+    else:
+        return res
 
 
 class IniConfigurator:
@@ -50,16 +54,17 @@ class IniConfigurator:
     extra_args : ``Dict[str, str]``, optional (default=``dict()``)
         The configuration of the command line input.
     """
+
     def __init__(self,
                  config_file: str,
-                 extra_args: Dict[str, str]=dict()) -> None:
+                 extra_args: Dict[str, str] = dict()) -> None:
 
         config = CaseSensConfigParser()
         config.read(config_file)
         if extra_args:
             extra_args = (
                 dict([(k[2:], v)
-                    for k, v in zip(extra_args[0::2], extra_args[1::2])]))
+                      for k, v in zip(extra_args[0::2], extra_args[1::2])]))
         attr_name = set()
         for section in config.sections():
             for k, v in config.items(section):
@@ -68,7 +73,8 @@ class IniConfigurator:
                     config.set(section, k, v)
 
                 if k in attr_name:
-                    raise RuntimeError('Attribute (%s) has already appeared.' % (k))
+                    raise RuntimeError(
+                        'Attribute (%s) has already appeared.' % (k))
                 else:
                     attr_name.update(k)
                 super(IniConfigurator, self).__setattr__(k, str_to_baseobj(v))

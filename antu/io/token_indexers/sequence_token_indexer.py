@@ -1,8 +1,9 @@
 from typing import Dict, List, Callable, TypeVar
 from overrides import overrides
-from antu.io.vocabulary import Vocabulary
-from antu.io.token_indexers.token_indexer import TokenIndexer
+from .. import Vocabulary
+from . import TokenIndexer
 Indices = TypeVar("Indices", List[int], List[List[int]])
+
 
 class SequenceTokenIndexer(TokenIndexer):
     """
@@ -17,18 +18,19 @@ class SequenceTokenIndexer(TokenIndexer):
         What changes need to be made to the token when counting or indexing.
         Commonly used are lowercase transformation functions.
     """
+
     def __init__(
-        self,
-        related_vocabs: List[str],
-        transform: Callable[[str,], str]=lambda x:x) -> None:
+            self,
+            related_vocabs: List[str],
+            transform: Callable[[str, ], str] = lambda x: x) -> None:
         self.related_vocabs = related_vocabs
         self.transform = transform
 
     @overrides
     def count_vocab_items(
-        self,
-        token: str,
-        counters: Dict[str, Dict[str, int]]) -> None:
+            self,
+            token: str,
+            counters: Dict[str, Dict[str, int]]) -> None:
         """
         The token is counted directly as an element.
 
@@ -45,9 +47,9 @@ class SequenceTokenIndexer(TokenIndexer):
 
     @overrides
     def tokens_to_indices(
-        self,
-        tokens: List[str],
-        vocab: Vocabulary) -> Dict[str, List[int]]:
+            self,
+            tokens: List[str],
+            vocab: Vocabulary) -> Dict[str, List[int]]:
         """
         Takes a list of tokens and converts them to one or more sets of indices.
         During the indexing process, each item corresponds to an index in the

@@ -17,6 +17,7 @@ class MetaField(Field):
     tokens : ``List[str]``
         Field content that contains a list of string.
     """
+
     def __init__(self,
                  name: str,
                  tokens: List[str]):
@@ -50,6 +51,3 @@ class MetaField(Field):
         # self.indexes = dict()
         # self.indexes[self.name] = self.tokens
         self.indexes = self.tokens
-
-
-

@@ -1,5 +1,5 @@
 import pytest
-from antu.io.vocabulary import Vocabulary
+from . import Vocabulary
 from collections import Counter
 
 
@@ -18,7 +18,7 @@ class TestVocabulary:
         # Test extend a vocabulary from a pretained vocabulary,
         # and intersect with another vocabulary.
         pretrained_vocabs = {'w2v': ['b', 'c', 'd']}
-        vocab.extend_from_pretrained_vocab(pretrained_vocabs, {'w2v':'glove'})
+        vocab.extend_from_pretrained_vocab(pretrained_vocabs, {'w2v': 'glove'})
         assert vocab.get_token_index('b', 'w2v') == 2
         assert vocab.get_token_index('d', 'w2v') == 0
         assert vocab.get_token_from_index(2, 'w2v') == 'b'
@@ -29,7 +29,7 @@ class TestVocabulary:
         # Test extend a vocabulary from a no oov pretained vocabulary
         pretrained_vocabs = {'glove_nounk': ['a', 'b', 'c']}
         vocab.extend_from_pretrained_vocab(
-            pretrained_vocabs, no_unk_namespace={'glove_nounk',})
+            pretrained_vocabs, no_unk_namespace={'glove_nounk', })
         assert vocab.get_token_index('a', 'glove_nounk') == 1
         assert vocab.get_token_index('c', 'glove_nounk') == 3
         with pytest.raises(RuntimeError) as excinfo:
@@ -40,7 +40,7 @@ class TestVocabulary:
         pretrained_vocabs = {'glove_nounk_nopad': ['a', 'b', 'c']}
         vocab.extend_from_pretrained_vocab(
             pretrained_vocabs,
-            no_unk_namespace={'glove_nounk_nopad',},
+            no_unk_namespace={'glove_nounk_nopad', },
             no_pad_namespace={"glove_nounk_nopad"})
         assert vocab.get_token_index('a', 'glove_nounk_nopad') == 0
         assert vocab.get_token_index('c', 'glove_nounk_nopad') == 2
@@ -68,7 +68,7 @@ class TestVocabulary:
 
         # Test extend a vocabulary from a counter without oov token
         counter = {'w_nounk': Counter(['This', 'is'])}
-        vocab.extend_from_counter(counter, no_unk_namespace={'w_nounk',})
+        vocab.extend_from_counter(counter, no_unk_namespace={'w_nounk', })
         with pytest.raises(RuntimeError) as excinfo:
             vocab.get_token_index('That', 'w_nounk')
         assert excinfo.type == RuntimeError

@@ -1,5 +1,5 @@
 import pytest
-from antu.io.fields.text_field import TextField
+from antu.io.fields import TextField
 
 
 class TestTextField:

@@ -1,7 +1,7 @@
 from typing import Dict, MutableMapping, Mapping, TypeVar, List, Set
 
-from antu.io.vocabulary import Vocabulary
-from antu.io.fields.field import Field
+from . import Vocabulary
+from .fields import Field
 
 Indices = TypeVar("Indices", List[int], List[List[int]])
 
@@ -16,10 +16,11 @@ class Instance(Mapping[str, Field]):
         A list of multiple data fields.
     """
 
-    def __init__(self, fields: List[Field]=None) -> None:
+    def __init__(self, fields: List[Field] = None) -> None:
         self.fields = fields
         self._fields_dict = {}
-        for field in fields: self._fields_dict[field.name] = field
+        for field in fields:
+            self._fields_dict[field.name] = field
         self.indexed = False  # Indicates whether the instance has been indexed
 
     def __getitem__(self, key: str) -> Field:

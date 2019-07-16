@@ -1,8 +1,9 @@
 import pytest
-from antu.io.token_indexers.char_token_indexer import CharTokenIndexer
-from antu.io.fields.text_field import TextField
+from . import CharTokenIndexer
+from ..fields import TextField
 from collections import Counter
-from antu.io.vocabulary import Vocabulary
+from .. import Vocabulary
+
 
 class TestCharTokenIndexer:
 
@@ -26,6 +27,6 @@ class TestCharTokenIndexer:
 
         # Test index()
         sent.index(vocab)
-        assert sent.indexes['glove'][0] == [0, 0, 0, 0] # 'This'
+        assert sent.indexes['glove'][0] == [0, 0, 0, 0]  # 'This'
         assert sent.indexes['glove'][3] == [2]  # 'a'
-        assert sent.indexes['my_char'][0] == [2, 3, 4, 5] # 'This'
+        assert sent.indexes['my_char'][0] == [2, 3, 4, 5]  # 'This'

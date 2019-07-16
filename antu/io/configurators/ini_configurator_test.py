@@ -1,5 +1,5 @@
 import pytest
-from antu.io.configurators.ini_configurator import IniConfigurator
+from antu.io.configurators import IniConfigurator
 import os
 
 
