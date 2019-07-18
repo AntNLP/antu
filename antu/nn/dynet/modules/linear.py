@@ -1,6 +1,7 @@
 import dynet as dy
 import math
 from . import dy_model
+from ..init import init_wrap
 
 
 @dy_model
@@ -16,9 +17,10 @@ class Linear:
             init: dy.PyInitializer = dy.GlorotInitializer()):
 
         pc = model.add_subcollection()
+        init = init_wrap(init, (out_dim, in_dim))
         self.W = pc.add_parameters((out_dim, in_dim), init=init)
         if bias:
-            self.b = pc.add_parameters((out_dim,), init=init)
+            self.b = pc.add_parameters((out_dim,), init=0)
         self.pc = pc
         self.bias = bias
 
