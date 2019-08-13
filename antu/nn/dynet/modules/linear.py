@@ -21,6 +21,8 @@ class Linear:
             self.b = pc.add_parameters((out_dim,), init=init)
         self.pc = pc
         self.bias = bias
+        self.spec = (in_dim, out_dim, bias, init)
 
     def __call__(self, x):
-        return self.W * x + (self.b if self.bias else 0)
+        b = self.b if self.bias else 0
+        return self.W * x + b 
