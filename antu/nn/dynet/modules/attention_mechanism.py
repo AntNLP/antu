@@ -5,8 +5,10 @@ We have implemented some of the attention mechanisms used.
 """
 
 import dynet as dy
+from . import dy_model
 
 
+@dy_model
 class VanillaAttention(object):
     """This computes Additive attention:
     The original attention mechanism (Bahdanau et al., 2015)
@@ -27,12 +29,13 @@ class VanillaAttention(object):
     :returns: attention vector :math:`\\boldsymbol{c}_t`
     :rtype: dynet.Expression
     """
+
     def __init__(self, model, v_dim, h_dim, s_dim):
         pc = model.add_subcollection()
 
         self.W1 = pc.add_parameters((v_dim, h_dim))
         self.W2 = pc.add_parameters((v_dim, s_dim))
-        self.v  = pc.add_parameters((1, v_dim))
+        self.v = pc.add_parameters((1, v_dim))
 
         self.pc = pc
         self.spec = v_dim, h_dim, s_dim
@@ -42,19 +45,3 @@ class VanillaAttention(object):
         a_t = dy.softmax(dy.transpose(e_t))
         c_t = h_matrix * a_t
         return c_t
-
-    @staticmethod
-    def from_spec(spec, model):
-        """Create and return a new instane with the needed parameters.
-
-        It is one of the prerequisites for Dynet save/load method.
-        """
-        v_dim, h_dim, s_dim = spec
-        return VanillaAttention(model, v_dim, h_dim, s_dim)
-
-    def param_collection(self):
-        """Return a :code:`dynet.ParameterCollection` object with the parameters.
-
-        It is one of the prerequisites for Dynet save/load method.
-        """
-        return self.pc

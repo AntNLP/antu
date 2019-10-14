@@ -1,4 +1,4 @@
-from antu.nn.dynet.transformer import TransformerBlock
+from .transformer import TransformerBlock
 from antu.nn.dynet.embedding import BERTEmbedding
 
 
@@ -8,12 +8,12 @@ class BERT:
     """
 
     def __init__(
-        self,
-        vocab_size: int,
-        hidden: int=768,
-        n_layers: int=12,
-        attn_heads: int=12,
-        dropout: float=0.1):
+            self,
+            vocab_size: int,
+            hidden: int = 768,
+            n_layers: int = 12,
+            attn_heads: int = 12,
+            dropout: float = 0.1):
         """
         :param vocab_size: vocab_size of total words
         :param hidden: BERT model hidden size
@@ -30,7 +30,8 @@ class BERT:
         self.feed_forward_hidden = hidden * 4
 
         # embedding for BERT, sum of positional, segment, token embeddings
-        self.embedding = BERTEmbedding(vocab_size=vocab_size, embed_size=hidden)
+        self.embedding = BERTEmbedding(
+            vocab_size=vocab_size, embed_size=hidden)
 
         # multi-layers transformer blocks, deep network
         self.transformer_blocks = [

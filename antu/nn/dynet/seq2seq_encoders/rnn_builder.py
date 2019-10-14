@@ -36,9 +36,11 @@ class DeepBiRNNBuilder(Seq2SeqEncoder):
         self.pc = pc
         self.spec = (n_layers, x_dim, h_dim, LSTMBuilder)
 
-    def __call__(self, inputs, init_vecs=None, p_x=0., p_h=0., train=False):
+    def __call__(self, inputs, init_vecs=None, p_x=0., p_h=0., mask=None, train=False):
         batch_size = inputs[0].dim()[1]
 
+        if mask is not None:
+            mask = dy.inputTensor(mask, True)
         for fnn, bnn in self.DeepBiLSTM:
             f, b = fnn.initial_state(update=True), bnn.initial_state(update=True)
             if train:
@@ -53,6 +55,9 @@ class DeepBiRNNBuilder(Seq2SeqEncoder):
                 bnn.set_dropout_masks(batch_size)
             fs, bs = f.transduce(inputs), b.transduce(inputs[::-1])
             inputs = [dy.concatenate([f, b]) for f, b in zip(fs, bs[::-1])]
+            if mask is not None:
+                inputs = [x*mask[i] for i, x in enumerate(inputs)]
+            print(inputs[-1].npvalue())
         return inputs
 
 

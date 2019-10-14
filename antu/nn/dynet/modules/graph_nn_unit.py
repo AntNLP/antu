@@ -21,7 +21,7 @@ class GraphNNUnit(object):
         init_B = init_wrap(init, (h_dim, h_dim))
         self.B = pc.add_parameters((h_dim, h_dim), init=init_B)
 
-        self.pc, self.f, self.p = pc, f, p
+        self.pc, self.f = pc, f
         self.spec = (h_dim, d_dim, f, init)
 
     def __call__(self, H, D):
