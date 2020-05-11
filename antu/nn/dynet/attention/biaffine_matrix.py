@@ -1,8 +1,10 @@
 import _dynet as dy
 import numpy as np
-from antu.nn.dynet.initializer import orthonormal_initializer
+from ..modules import dy_model
+from ..init import init_wrap
 
 
+@dy_model
 class BiaffineMatAttention(object):
     """This builds Pointer Networks labeled Classifier:
     .. math::
@@ -39,15 +41,16 @@ class BiaffineMatAttention(object):
         # hT -> ((L, h_dim), B), s -> ((s_dim, L), B)
         if len(h.dim()[0]) == 2:
             L = h.dim()[0][1]
-            if self.h_bias: s = dy.concatenate([h, dy.inputTensor(np.ones((1, L), dtype=np.float32))])
-            if self.s_bias: h = dy.concatenate([s, dy.inputTensor(np.ones((1, L), dtype=np.float32))])
+            if self.h_bias: s = dy.concatenate([s, dy.inputTensor(np.ones((1, L), dtype=np.float32))])
+            if self.s_bias: h = dy.concatenate([h, dy.inputTensor(np.ones((1, L), dtype=np.float32))])
         else:
-            if self.h_bias: s = dy.concatenate([h, dy.inputTensor(np.ones((1,), dtype=np.float32))])
-            if self.s_bias: h = dy.concatenate([s, dy.inputTensor(np.ones((1,), dtype=np.float32))])
+            if self.h_bias: s = dy.concatenate([s, dy.inputTensor(np.ones((1,), dtype=np.float32))])
+            if self.s_bias: h = dy.concatenate([h, dy.inputTensor(np.ones((1,), dtype=np.float32))])
         hT = dy.transpose(h)
         lin = self.U * s        # ((h_dim*n_label, L), B)
         if self.n_label > 1:
             lin = dy.reshape(lin, (self.h_dim, self.n_label))
+        
         blin = hT * lin
         if self.n_label == 1:
             return blin
