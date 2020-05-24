@@ -1,8 +1,10 @@
-import _dynet as dy
+import dynet as dy
 import numpy as np
-from antu.nn.dynet.initializer import orthonormal_initializer
+from ..modules import dy_model
+from ..init import init_wrap
 
 
+@dy_model
 class BiaffineAttention(object):
     """This builds Pointer Networks labeled Classifier:
     .. math::
@@ -21,11 +23,12 @@ class BiaffineAttention(object):
     :returns: probatilistic vector :math:`\\boldsymbol{p}_t`
     :rtype: dynet.Expression
     """
+
     def __init__(
-        self,
-        model,
-        h_dim: int, s_dim: int, n_label: int,
-        bias=False, init=dy.ConstInitializer(0.)):
+            self,
+            model,
+            h_dim: int, s_dim: int, n_label: int,
+            bias=False, init=dy.ConstInitializer(0.)):
         pc = model.add_subcollection()
         if bias:
             if n_label == 1:
@@ -33,10 +36,8 @@ class BiaffineAttention(object):
             else:
                 self.V = pc.add_parameters((n_label, h_dim+s_dim), init=0)
                 self.B = pc.add_parameters((n_label,), init=0)
-        if init != 'orthonormal':
-            self.U = pc.add_parameters((h_dim*n_label, s_dim), init)
-        else:
-            self.U = pc.parameters_from_numpy(orthonormal_initializer(h_dim*n_label, s_dim))
+        init_U = init_wrap(init, (h_dim*n_label, s_dim))
+        self.U = pc.add_parameters((h_dim*n_label, s_dim), init=init_U)
         self.h_dim, self.s_dim, self.n_label = h_dim, s_dim, n_label
         self.pc, self.bias = pc, bias
         self.spec = (h_dim, s_dim, n_label, bias, init)
@@ -53,19 +54,3 @@ class BiaffineAttention(object):
         else:
             return dy.transpose(blin)+(self.V*dy.concatenate([h, s])+self.B if self.bias else 0)
 
-
-    @staticmethod
-    def from_spec(spec, model):
-        """Create and return a new instane with the needed parameters.
-
-        It is one of the prerequisites for Dynet save/load method.
-        """
-        h_dim, s_dim, n_label, bias, init = spec
-        return BiaffineLabelClassifier(model, h_dim, s_dim, n_label, bias, init)
-
-    def param_collection(self):
-        """Return a :code:`dynet.ParameterCollection` object with the parameters.
-
-        It is one of the prerequisites for Dynet save/load method.
-        """
-        return self.pc

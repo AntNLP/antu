@@ -1,9 +1,10 @@
 from typing import List, Dict, TypeVar, Callable
 from abc import ABCMeta, abstractmethod
 
-from antu.io.vocabulary import Vocabulary
+from .. import Vocabulary
 
 Indices = TypeVar("Indices", List[int], List[List[int]])
+
 
 class TokenIndexer(metaclass=ABCMeta):
     """
@@ -13,9 +14,9 @@ class TokenIndexer(metaclass=ABCMeta):
 
     @abstractmethod
     def count_vocab_items(
-        self,
-        token: str,
-        counter: Dict[str, Dict[str, int]]) -> None:
+            self,
+            token: str,
+            counter: Dict[str, Dict[str, int]]) -> None:
         """
         Defines how each token in the field is counted. In most cases, just use
         the string as a key. However, for character-level ``TokenIndexer``, you
@@ -31,9 +32,9 @@ class TokenIndexer(metaclass=ABCMeta):
 
     @abstractmethod
     def tokens_to_indices(
-        self,
-        tokens: List[str],
-        vocab: Vocabulary) -> Dict[str, Indices]:
+            self,
+            tokens: List[str],
+            vocab: Vocabulary) -> Dict[str, Indices]:
         """
         Takes a list of tokens and converts them to one or more sets of indices.
         This could be just an ID for each token from the vocabulary.

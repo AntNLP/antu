@@ -1,7 +1,7 @@
-from typing import Dict, MutableMapping, Mapping, TypeVar, List
+from typing import Dict, MutableMapping, Mapping, TypeVar, List, Set
 
-from antu.io.vocabulary import Vocabulary
-from antu.io.fields.field import Field
+from . import Vocabulary
+from .fields import Field
 
 Indices = TypeVar("Indices", List[int], List[List[int]])
 
@@ -16,10 +16,11 @@ class Instance(Mapping[str, Field]):
         A list of multiple data fields.
     """
 
-    def __init__(self, fields: List[Field]=None) -> None:
+    def __init__(self, fields: List[Field] = None) -> None:
         self.fields = fields
         self._fields_dict = {}
-        for field in fields: self._fields_dict[field.name] = field
+        for field in fields:
+            self._fields_dict[field.name] = field
         self.indexed = False  # Indicates whether the instance has been indexed
 
     def __getitem__(self, key: str) -> Field:
@@ -84,5 +85,38 @@ class Instance(Mapping[str, Field]):
                 field.index(vocab)
         res = {}
         for field in self.fields:
+            res[field.name] = field.indexes
+        return res
+
+    def dynamic_index_fields(self, vocab: Vocabulary, dynamic_fields: Set[str]) -> Dict[str, Dict[str, Indices]]:
+        """
+        Indexes all fields in this ``Instance`` using the provided ``Vocabulary``.
+        This `mutates` the current object, it does not return a new ``Instance``.
+        A ``DataIterator`` will call this on each pass through a dataset; we use the ``indexed``
+        flag to make sure that indexing only happens once.
+        This means that if for some reason you modify your vocabulary after you've
+        indexed your instances, you might get unexpected behavior.
+
+        Parameters
+        ----------
+        vocab : ``Vocabulary``
+            ``vocab`` is used to get the index of each item.
+
+        Returns
+        -------
+        res : ``Dict[str, Dict[str, Indices]]``
+            Returns the Indices corresponding to the instance. The first key is
+            field name and the second key is the vocabulary name.
+        """
+        if not self.indexed:
+            self.indexed = True
+            for field in self.fields:
+                if field.name not in dynamic_fields:
+                    field.index(vocab)
+
+        res = {}
+        for field in self.fields:
+            if field.name in dynamic_fields:
+                field.index(vocab)
             res[field.name] = field.indexes
         return res
