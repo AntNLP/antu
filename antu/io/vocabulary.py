@@ -4,6 +4,7 @@ from bidict import bidict
 DEFAULT_PAD_TOKEN = "*@PAD@*"
 DEFAULT_UNK_TOKEN = "*@UNK@*"
 
+
 class Vocabulary(object):
     """
     Parameters
@@ -75,13 +76,12 @@ class Vocabulary(object):
                         cnt += 1
             self.vocab_cnt[vocab_name] = cnt
 
-
     def extend_from_pretrained_vocab(
-        self,
-        pretrained_vocab: Dict[str, List[str]],
-        intersection_vocab: Dict[str, str] = dict(),
-        no_pad_namespace: Set[str] = set(),
-        no_unk_namespace: Set[str] = set()) -> None:
+            self,
+            pretrained_vocab: Dict[str, List[str]],
+            intersection_vocab: Dict[str, str] = dict(),
+            no_pad_namespace: Set[str] = set(),
+            no_unk_namespace: Set[str] = set()) -> None:
         """
         Extend the vocabulary from the pre-trained vocabulary after defining
         the vocabulary.
@@ -126,11 +126,11 @@ class Vocabulary(object):
             self.vocab_cnt[vocab_name] = cnt
 
     def extend_from_counter(
-        self,
-        counters: Dict[str, Dict[str, int]],
-        min_count: Union[int, Dict[str, int]] = dict(),
-        no_pad_namespace: Set[str] = set(),
-        no_unk_namespace: Set[str] = set()) -> None:
+            self,
+            counters: Dict[str, Dict[str, int]],
+            min_count: Union[int, Dict[str, int]] = dict(),
+            no_pad_namespace: Set[str] = set(),
+            no_unk_namespace: Set[str] = set()) -> None:
         """
         Extend the vocabulary from the dataset statistic counters after defining
         the vocabulary.
@@ -259,6 +259,3 @@ class Vocabulary(object):
             return self.vocab[namespace][self._UNK_token]
         else:
             raise RuntimeError("(%s) doesn't has UNK token." % (namespace))
-
-
-

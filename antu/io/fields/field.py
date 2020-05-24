@@ -1,7 +1,7 @@
 from typing import List, Dict
 from abc import ABCMeta, abstractmethod
 
-from antu.io.vocabulary import Vocabulary
+from .. import Vocabulary
 
 
 class Field(metaclass=ABCMeta):

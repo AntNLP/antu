@@ -1,8 +1,8 @@
 from typing import List, Iterator, Dict
 from overrides import overrides
-from antu.io.token_indexers.token_indexer import TokenIndexer
-from antu.io.vocabulary import Vocabulary
-from antu.io.fields.field import Field
+from ..token_indexers import TokenIndexer
+from .. import Vocabulary
+from . import Field
 
 
 class TextField(Field):
@@ -21,11 +21,11 @@ class TextField(Field):
     indexers : ``List[TokenIndexer]``, optional (default=``list()``)
         Indexer list that defines the vocabularies associated with the field.
     """
-    def __init__(
-        self,
-        name: str,
-        tokens: List[str],
-        indexers: List[TokenIndexer] = list()):
+
+    def __init__(self,
+                 name: str,
+                 tokens: List[str],
+                 indexers: List[TokenIndexer] = list()):
         self.name = name
         self.tokens = tokens
         self.indexers = indexers
@@ -39,10 +39,11 @@ class TextField(Field):
     def __len__(self) -> int:
         return len(self.tokens)
 
+    def __str__(self) -> str:
+        return '{}: [{}]'.format(self.name, ', '.join(self.tokens))
+
     @overrides
-    def count_vocab_items(
-        self,
-        counters: Dict[str, Dict[str, int]]) -> None:
+    def count_vocab_items(self, counters: Dict[str, Dict[str, int]]) -> None:
         """
         We count the number of strings if the string needs to be counted to some
          counters. You can pass directly if there is no string that needs
@@ -60,9 +61,7 @@ class TextField(Field):
                 idxer.count_vocab_items(token, counters)
 
     @overrides
-    def index(
-        self,
-        vocab: Vocabulary) -> None:
+    def index(self, vocab: Vocabulary) -> None:
         """
         Gets one or more index mappings for each element in the Field.
 
@@ -74,4 +73,3 @@ class TextField(Field):
         self.indexes = {}
         for idxer in self.indexers:
             self.indexes.update(idxer.tokens_to_indices(self.tokens, vocab))
-
